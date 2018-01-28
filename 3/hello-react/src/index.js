@@ -4,115 +4,158 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-class Title extends Component{
-	render(){
-		return(
-			<h1>react book</h1>
-		)
-	}
-}
+// class Title extends Component{
+// 	handleClickOnTitle(word,e){
+// 		console.log(this,word)
+// 	}
+// 	render(){
+// 		return(
+// 			<h1 onClick={this.handleClickOnTitle.bind(this,'hello')}>react book</h1>
+// 		)
+// 	}
+// }
 
-class Header extends Component{
-	renderGoodWord(goodWord,badWord){
-		const isGoodWord = true
-		return isGoodWord ? goodWord : badWord
+
+
+// class Header extends Component{
+// 	renderGoodWord(goodWord,badWord){
+// 		const isGoodWord = true
+// 		return isGoodWord ? goodWord : badWord
+// 	}
+// 	render(){
+// 		return (
+// 		   <div>
+// 		        <h1>
+// 		        <Title />
+// 		        </h1>
+// 		        <h2>This is Header</h2>
+// 		   </div>
+// 		)
+// 	}
+// }
+
+
+// class Main extends Component{
+// 	render(){
+// 		return(
+// 		<div>
+// 		    <h2>This is main content</h2>
+// 		</div>
+// 		)
+// 	}
+// }
+
+
+// class Footer extends Component{
+// 	render(){
+// 		return(
+// 		<div>
+// 		    <h2>This is footer</h2>
+// 		</div>
+// 		)
+// 	}
+// }
+
+
+// class Index extends Component{
+// 	render(){
+// 		return(
+// 		   <div>
+// 		     <Header />
+// 		     <Main />
+// 		     <Footer />
+// 		   </div>
+// 		)
+// 	}
+// }
+
+
+
+// class House extends Component {
+//   render(){
+//   	return (
+//   	 <div>
+//   	     <h1>this is House</h1>
+//   	     <Room />
+//   	     <Bathroom />
+//   	 </div>
+//   	)
+//   }
+// }
+
+// class Room extends Component {
+//    render(){
+//   	return (
+//   	 <div>
+//   	   <h1>this is Room</h1>
+//   	   <Man />
+//   	   <Dog />
+//   	 </div>
+//   	)
+//   }
+// }
+
+// class Bathroom extends Component {
+//   render(){
+//   	return (
+//   	 <div>this is Bathroom</div>
+//   	)
+//   }
+// }
+
+// class Man extends Component {
+//   render(){
+//   	return (
+//   	 <div>this is Man</div>
+//   	)
+//   }
+// }
+
+// class Dog extends Component {
+//     render(){
+//   	return (
+//   	 <div>this is Dog</div>
+//   	)
+//   }
+// }
+
+// class Dogg extends Component{
+// 	bark(){
+// 		alert('bark')
+// 	}
+// 	run(){
+// 		alert('run')
+// 	}
+// 	render(){
+// 		return (<div onClick={()=>{this.bark.bind(this);this.run.bind(this);}}>DOG</div>)
+// 	}
+// }
+
+
+class LikeButton extends Component{
+	constructor(){
+		super()
+		this.state = {isLiked:false}
+	}
+	// setState(state){
+	// 	alert(state.isLiked)
+	// 	this.state = state
+	// }
+	handleClickOnLikeButton(){
+		console.log(this.state.isLiked)
+		this.setState({
+		isLiked:!this.state.isLiked
+		})
+		console.log(this.state.isLiked)
 	}
 	render(){
 		return (
-		   <div>
-		        <h1>
-		        <Title />
-		        </h1>
-		        <h2>This is Header</h2>
-		   </div>
+		    <button onClick={this.handleClickOnLikeButton.bind(this)}>
+		    {this.state.isLiked?'取消':'点赞'}
+		    </button>
 		)
 	}
 }
 
-
-class Main extends Component{
-	render(){
-		return(
-		<div>
-		    <h2>This is main content</h2>
-		</div>
-		)
-	}
-}
-
-
-class Footer extends Component{
-	render(){
-		return(
-		<div>
-		    <h2>This is footer</h2>
-		</div>
-		)
-	}
-}
-
-
-class Index extends Component{
-	render(){
-		return(
-		   <div>
-		     <Header />
-		     <Main />
-		     <Footer />
-		   </div>
-		)
-	}
-}
-
-
-
-class House extends Component {
-  render(){
-  	return (
-  	 <div>
-  	     <h1>this is House</h1>
-  	     <Room />
-  	     <Bathroom />
-  	 </div>
-  	)
-  }
-}
-
-class Room extends Component {
-   render(){
-  	return (
-  	 <div>
-  	   <h1>this is Room</h1>
-  	   <Man />
-  	   <Dog />
-  	 </div>
-  	)
-  }
-}
-
-class Bathroom extends Component {
-  render(){
-  	return (
-  	 <div>this is Bathroom</div>
-  	)
-  }
-}
-
-class Man extends Component {
-  render(){
-  	return (
-  	 <div>this is Man</div>
-  	)
-  }
-}
-
-class Dog extends Component {
-    render(){
-  	return (
-  	 <div>this is Dog</div>
-  	)
-  }
-}
-
-ReactDOM.render(<House />, document.getElementById('root'));
+ReactDOM.render(<LikeButton />, document.getElementById('root'));
 registerServiceWorker();
