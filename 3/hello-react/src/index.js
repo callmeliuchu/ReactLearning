@@ -132,30 +132,100 @@ import registerServiceWorker from './registerServiceWorker';
 // }
 
 
+// class LikeButton extends Component{
+// 	constructor(){
+// 		super()
+// 		this.state = {isLiked:false}
+// 	}
+// 	// setState(state){
+// 	// 	alert(state.isLiked)
+// 	// 	this.state = state
+// 	// }
+// 	handleClickOnLikeButton(){
+// 		console.log(this.state.isLiked)
+// 		this.setState({
+// 		isLiked:!this.state.isLiked
+// 		})
+// 		console.log(this.state.isLiked)
+// 	}
+// 	render(){
+// 		return (
+// 		    <button onClick={this.handleClickOnLikeButton.bind(this)}>
+// 		    {this.state.isLiked?'取消':'点赞'}
+// 		    </button>
+// 		)
+// 	}
+// }
+
+// class LikeButton extends Component{
+// 	constructor(){
+// 		super()
+// 		this.state = {isLiked:false}
+// 	}
+// 	handleClickOnLikeButton(){
+// 		this.setState({
+// 			isLiked:!this.state.isLiked
+// 		})
+// 	}
+// 	render(){
+// 		const likedText = this.props.likedText || 'cancel'
+// 		const unlikedText = this.props.unlikedText || 'flatter'
+// 		return (
+// 		    <button onClick={this.handleClickOnLikeButton.bind(this)}>
+// 		    {this.state.isLiked ? likedText:unlikedText}
+// 		    </button>
+// 		)
+// 	}
+// }
+
+// class Index extends Component{
+// 	render(){
+// 		return(
+// 		<div>
+// 		  <LikeButton likedText='coment' unlikedText='not coment'></LikeButton>
+// 		</div>
+// 		)
+// 	}
+// }
+
 class LikeButton extends Component{
 	constructor(){
 		super()
 		this.state = {isLiked:false}
 	}
-	// setState(state){
-	// 	alert(state.isLiked)
-	// 	this.state = state
-	// }
 	handleClickOnLikeButton(){
-		console.log(this.state.isLiked)
 		this.setState({
-		isLiked:!this.state.isLiked
+		  isLiked: !this.state.isLiked
 		})
-		console.log(this.state.isLiked)
+		if(this.props.onClick){
+			this.props.onClick
+		}
 	}
 	render(){
-		return (
-		    <button onClick={this.handleClickOnLikeButton.bind(this)}>
-		    {this.state.isLiked?'取消':'点赞'}
-		    </button>
+		const wordings = this.props.wordings || {
+			likedText:'cancel',
+			unlikedText:'coment'
+		}
+		return(
+			<button onClick={this.handleClickOnLikeButton.bind(this)}>
+			{this.isLiked ? wordings.likedText : wordings.unlikedText}
+			</button>
 		)
 	}
 }
 
-ReactDOM.render(<LikeButton />, document.getElementById('root'));
+class Index extends Component{
+	render(){
+		return(
+		<div>
+		   <LikeButton wordings={{likedText:'has commentd',unlikedText:'commentssss'}}
+		   onClick={()=>console.log('Click')}
+		   />
+		</div>
+		)
+	}
+}
+
+
+ReactDOM.render(<Index />, document.getElementById('root'));
 registerServiceWorker();
