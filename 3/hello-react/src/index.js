@@ -188,28 +188,139 @@ import registerServiceWorker from './registerServiceWorker';
 // 	}
 // }
 
-class LikeButton extends Component{
-	constructor(){
-		super()
-		this.state = {isLiked:false}
-	}
-	handleClickOnLikeButton(){
-		this.setState({
-		  isLiked: !this.state.isLiked
-		})
-		if(this.props.onClick){
-			this.props.onClick
-		}
-	}
+// class LikeButton extends Component{
+// 	constructor(){
+// 		super()
+// 		this.state = {isLiked:false}
+// 	}
+// 	handleClickOnLikeButton(){
+// 		this.setState({
+// 		  isLiked: !this.state.isLiked
+// 		})
+// 		if(this.props.onClick){
+// 			this.props.onClick
+// 		}
+// 	}
+// 	render(){
+// 		const wordings = this.props.wordings || {
+// 			likedText:'cancel',
+// 			unlikedText:'coment'
+// 		}
+// 		return(
+// 			<button onClick={this.handleClickOnLikeButton.bind(this)}>
+// 			{this.isLiked ? wordings.likedText : wordings.unlikedText}
+// 			</button>
+// 		)
+// 	}
+// }
+
+// class Index extends Component{
+// 	render(){
+// 		return(
+// 		<div>
+// 		   <LikeButton wordings={{likedText:'has commentd',unlikedText:'commentssss'}}
+// 		   onClick={()=>console.log('Click')}
+// 		   />
+// 		</div>
+// 		)
+// 	}
+// }
+
+
+// class HelloWorld extends Component{
+// 	constructor(){
+// 		super()
+// 	}
+// 	SayHi(){
+// 		alert('Hello World')
+// 	}
+// 	render(){
+// 		return(
+// 		<button onClick={this.SayHi.bind(this)}>this is a test</button>
+// 		)
+// 	}
+// }
+
+// const HelloWorld1 = (props) => {
+// 	const sayHi = (event) => alert('Hello World')
+// 	return (
+// 	   <button onClick={sayHi}>Hello World</button>
+// 	)
+// }
+
+// class Index extends Component{
+// 	constructor(){
+// 		super()
+// 	}
+// 	render(){
+// 		return (
+// 		   <div>
+// 		   {
+// 		   	[<span>hello js </span>,
+// 		   	 <span>good </span>,
+// 		   	 <span>ok </span>
+// 		   	]
+// 		   }
+// 		   </div>
+// 		)
+// 	}
+// }
+
+
+const users = [
+  { username: 'Jerry', age: 21, gender: 'male' },
+  { username: 'Tomy', age: 22, gender: 'male' },
+  { username: 'Lily', age: 19, gender: 'female' },
+  { username: 'Lucy', age: 20, gender: 'female22222222222222' }
+]
+
+// class Index extends Component{
+// 	render(){
+// 		const userElements = []
+// 		for(let user of users){
+// 			userElements.push(
+// 			<div>
+// 			    <div>username:{user.username}</div>
+//                 <div>age:{user.age}</div>
+//                 <div>gender:{user.gender}</div>
+// 			</div>
+// 			)
+// 		}
+// 		return (
+// 		<div>
+// 		{userElements}
+// 		</div>
+// 		)
+// 	}
+// }
+
+// class Index extends Component{
+// 	render(){
+// 		return (
+// 			<div>
+// 			{users.map((user)=>{
+// 		    return (<div>
+// 				    <div>name:{user.username}</div>
+// 				    <div>age:{user.age}</div>
+// 				      <div>gender:{user.gender}</div>
+// 				  </div>)
+			     
+// 			})
+// 			}
+// 			</div>
+// 		)
+// 	}
+// }
+
+class User extends Component{
 	render(){
-		const wordings = this.props.wordings || {
-			likedText:'cancel',
-			unlikedText:'coment'
-		}
-		return(
-			<button onClick={this.handleClickOnLikeButton.bind(this)}>
-			{this.isLiked ? wordings.likedText : wordings.unlikedText}
-			</button>
+		const {user} = this.props
+		return (
+			<div>
+			  <div>name:{user.username}</div>
+			  <div>age:{user.age}</div>
+			  <div>gender:{user.gender}</div>
+			</div>
 		)
 	}
 }
@@ -217,11 +328,9 @@ class LikeButton extends Component{
 class Index extends Component{
 	render(){
 		return(
-		<div>
-		   <LikeButton wordings={{likedText:'has commentd',unlikedText:'commentssss'}}
-		   onClick={()=>console.log('Click')}
-		   />
-		</div>
+			<div>
+			{users.map((user)=><User user={user}/>)}
+			</div>
 		)
 	}
 }
