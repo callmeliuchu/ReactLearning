@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import ReactDOM from 'react-dom';
+import CommentApp from './CommentApp'
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
@@ -267,12 +268,12 @@ import registerServiceWorker from './registerServiceWorker';
 // }
 
 
-const users = [
-  { username: 'Jerry', age: 21, gender: 'male' },
-  { username: 'Tomy', age: 22, gender: 'male' },
-  { username: 'Lily', age: 19, gender: 'female' },
-  { username: 'Lucy', age: 20, gender: 'female22222222222222' }
-]
+// const users = [
+//   { username: 'Jerry', age: 21, gender: 'male' },
+//   { username: 'Tomy', age: 22, gender: 'male' },
+//   { username: 'Lily', age: 19, gender: 'female' },
+//   { username: 'Lucy', age: 20, gender: 'female22222222222222' }
+// ]
 
 // class Index extends Component{
 // 	render(){
@@ -312,29 +313,33 @@ const users = [
 // 	}
 // }
 
-class User extends Component{
-	render(){
-		const {user} = this.props
-		return (
-			<div>
-			  <div>name:{user.username}</div>
-			  <div>age:{user.age}</div>
-			  <div>gender:{user.gender}</div>
-			</div>
-		)
-	}
-}
+// class User extends Component{
+// 	render(){
+// 		const {user} = this.props
+// 		return (
+// 			<div>
+// 			  <div>name:{user.username}</div>
+// 			  <div>age:{user.age}</div>
+// 			  <div>gender:{user.gender}</div>
+// 			</div>
+// 		)
+// 	}
+// }
 
-class Index extends Component{
-	render(){
-		return(
-			<div>
-			{users.map((user)=><User user={user}/>)}
-			</div>
-		)
-	}
-}
+// class Index extends Component{
+// 	render(){
+// 		return(
+// 			<div>
+// 			{users.map((user)=><User user={user}/>)}
+// 			</div>
+// 		)
+// 	}
+// }
 
 
-ReactDOM.render(<Index />, document.getElementById('root'));
+
+
+
+
+ReactDOM.render(<CommentApp />, document.getElementById('root'));
 registerServiceWorker();
