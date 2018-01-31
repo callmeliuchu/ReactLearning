@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src='./Graph.js'></script>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+</body>
+<script type="text/javascript">
+    var Point = function(x,y){
+        this.x = x;
+        this.y = y;
+    }
+    var DrawTool = {}
+    DrawTool.canvas = document.getElementById("canvas");
+    DrawTool.ctx = DrawTool.canvas.getContext("2d");
+    DrawTool.iniCanvas = function(width=800,height=600){
+        this.width = width;
+        this.height = height;
+        this.canvas.width = width;
+        this.canvas.height = height;
+    }
+    DrawTool.line = function(p1,p2,width=1,color="#000000"){
+         this.ctx.moveTo(p1.x,p1.y);
+         this.ctx.lineTo(p2.x,p2.y);
+         this.ctx.strokeStyle=color;
+         this.ctx.lineWidth=width;
+    }
+    DrawTool.drawLine = function(p1,p2){
+    	this.beginPath()
+    	this.line(p1,p2)
+    	this.stroke()
+    }
+    DrawTool.clear = function(){
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+    DrawTool.beginPath = function(){
+         this.ctx.beginPath();
+    }
+    DrawTool.fillCycle = function(rx,ry,radius){
+         this.beginPath();
+         this.ctx.arc(rx, ry, radius, 0, Math.PI*2, true);
+         this.stroke();
+    }
+    DrawTool.drawCycle = function(p,r){
+    	this.fillCycle(p.x,p.y,r);
+    }
+    DrawTool.fillText = function(x,y,text){
+    	this.ctx.fillText(x,y,text)
+    }
+    DrawTool.stroke = function(){
+         this.ctx.stroke();
+    }
+
+    function drawGraph(){
+	    p0 = new Point(20,20)
+	    p1 = new Point(760,20)
+	    p2 = new Point(20,560)
+	    p3 = new Point(760,560)
+	    const p_arr = [p0,p1,p2,p3]
+	    const graph = [[p0,p1],[p1,p2],[p2,p3],[p3,p0],[p3,p1],[p0,p2]]
+	    for(let p of p_arr){
+	    	DrawTool.drawCycle(p,20)
+	    }
+	    for(let line of graph){
+	    	DrawTool.drawLine(line[0],line[1])
+	    }
+    }
+    var graph_1 = new Graph(4)
+    class Particle{
+    	constructor(vx=3,vy=0,r=5){
+    		this.vx = vx
+    		this.vy = vy
+    		this.r = r
+    	}
+    	setStart(start){
+    		this.start = start
+    		this.x = start.x
+    		this.y = start.y
+    	}
+    	comeToEnd(end){
+    		this.end = end
+    		this.cal_vy()
+    	}
+    	setStartIndex(startIndex){
+    		this.startIndex = startIndex
+    		this.setStart(locationMapping[startIndex])
+    	}
+    	comeToEndIndex(endIndex){
+    		this.endIndex = endIndex
+    		this.comeToEnd(locationMapping[endIndex])
+    	}
+    	cal_vy(){
+    	          this.vy = this.vx*(this.start.y-this.end.y)/(this.start.x-this.end.x)
+    	}
+    	cal_vx(){
+    	          this.vx = this.vy*(this.start.x-this.end.x)/(this.start.y-this.end.y)
+    	}
+    	cal_dis_to_end(){
+    		return Math.sqrt((this.x-this.end.x)*(this.x-this.end.x) + (this.y-this.end.y)*(this.y-this.end.y))
+    	}
+    	move(dt){
+    	          this.x += this.vx*dt
+    	          this.y += this.vy*dt
+    	}
+    	moveOnGraph(dt){
+    		if(this.cal_dis_to_end()>this.r){
+    			this.move(dt)
+    		}else{
+    		           this.setStartIndex(this.endIndex)
+    		           let nextIndex = graph_1.searchNextIndex(this.startIndex)
+    		           this.comeToEndIndex(nextIndex)
+    		}
+    	}
+    	draw(){
+    		DrawTool.fillCycle(this.x,this.y,this.r)
+    	}
+    }
+    DrawTool.iniCanvas()
+    var start = {x:20,y:20}
+    var end = {x:760,y:560}
+    var particle = new Particle()
+    particle.setStart(start)
+    setInterval(()=>{
+       DrawTool.clear()
+       drawGraph()
+       particle.draw()  
+       particle.comeToEnd(end)
+       particle.move(1)
+    },100)
+
+    // DrawTool.fillCycle(30,40,20)
+    // DrawTool.fillText('1',26,45,20)
+</script>
+</html>
