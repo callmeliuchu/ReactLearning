@@ -337,9 +337,67 @@ import registerServiceWorker from './registerServiceWorker';
 // }
 
 
+class Input extends Component{
+	constructor(){
+		super()
+		this.state = {
+			value:''
+		}
+	}
+	handleInputOnChange(event){
+		if(this.props.getValue){
+			const value = event.target.value
+			this.props.getValue(value)
+		}
+		this.setState({
+			value:event.target.value
+		})
+	}
+	render(){
+		return(
+			<div>
+			    <input type='number' value={this.state.value} onChange={this.handleInputOnChange.bind(this)}/>
+			</div>
+		)
+	}
+}
+
+
+class PercentageShower extends Component{
+	static defaultProps = {
+		precentageValue:''
+	}
+	render(){
+		const percentageValue = (this.props.percentageValue/100).toFixed(2) + '%'
+		return (
+		    <div>{percentageValue}</div>
+		)
+	}
+}
+
+class PercentageApp extends Component{
+	constructor(){
+		super()
+		this.state = {
+			percentageValue:''
+		}
+	}
+	handleGetValue(value){
+		this.setState({
+			percentageValue:value
+		})
+	}
+	render(){
+		return(
+		    <div>
+		      <Input getValue = {this.handleGetValue.bind(this)}/>
+		      <PercentageShower percentageValue={this.state.percentageValue}/>
+		    </div>
+		)
+	}
+}
 
 
 
-
-ReactDOM.render(<CommentApp />, document.getElementById('root'));
+ReactDOM.render(<PercentageApp />, document.getElementById('root'));
 registerServiceWorker();
