@@ -337,67 +337,117 @@ import registerServiceWorker from './registerServiceWorker';
 // }
 
 
-class Input extends Component{
+// class Input extends Component{
+// 	constructor(){
+// 		super()
+// 		this.state = {
+// 			value:''
+// 		}
+// 	}
+// 	handleInputOnChange(event){
+// 		if(this.props.getValue){
+// 			const value = event.target.value
+// 			this.props.getValue(value)
+// 		}
+// 		this.setState({
+// 			value:event.target.value
+// 		})
+// 	}
+// 	render(){
+// 		return(
+// 			<div>
+// 			    <input type='number' value={this.state.value} onChange={this.handleInputOnChange.bind(this)}/>
+// 			</div>
+// 		)
+// 	}
+// }
+
+
+// class PercentageShower extends Component{
+// 	static defaultProps = {
+// 		precentageValue:''
+// 	}
+// 	render(){
+// 		const percentageValue = (this.props.percentageValue/100).toFixed(2) + '%'
+// 		return (
+// 		    <div>{percentageValue}</div>
+// 		)
+// 	}
+// }
+
+// class PercentageApp extends Component{
+// 	constructor(){
+// 		super()
+// 		this.state = {
+// 			percentageValue:''
+// 		}
+// 	}
+// 	handleGetValue(value){
+// 		this.setState({
+// 			percentageValue:value
+// 		})
+// 	}
+// 	render(){
+// 		return(
+// 		    <div>
+// 		      <Input getValue = {this.handleGetValue.bind(this)}/>
+// 		      <PercentageShower percentageValue={this.state.percentageValue}/>
+// 		    </div>
+// 		)
+// 	}
+// }
+
+
+class Header extends Component{
 	constructor(){
 		super()
-		this.state = {
-			value:''
-		}
+		console.log('constructor')
 	}
-	handleInputOnChange(event){
-		if(this.props.getValue){
-			const value = event.target.value
-			this.props.getValue(value)
-		}
-		this.setState({
-			value:event.target.value
-		})
+
+	componentWillMount(){
+		console.log('component will mount')
 	}
+
+	componentDidMount(){
+		console.log('component did mount')
+	}
+
 	render(){
-		return(
+		console.log('render')
+		return (
 			<div>
-			    <input type='number' value={this.state.value} onChange={this.handleInputOnChange.bind(this)}/>
+			<h1 className='title'>react book</h1>
 			</div>
 		)
 	}
 }
 
 
-class PercentageShower extends Component{
-	static defaultProps = {
-		precentageValue:''
-	}
-	render(){
-		const percentageValue = (this.props.percentageValue/100).toFixed(2) + '%'
-		return (
-		    <div>{percentageValue}</div>
-		)
-	}
-}
-
-class PercentageApp extends Component{
+class Index extends Component{
 	constructor(){
 		super()
 		this.state = {
-			percentageValue:''
+			isShowHeader:true
 		}
 	}
-	handleGetValue(value){
+
+	handleShowOrHide(){
 		this.setState({
-			percentageValue:value
+			isShowHeader:!this.state.isShowHeader
 		})
 	}
+
 	render(){
 		return(
-		    <div>
-		      <Input getValue = {this.handleGetValue.bind(this)}/>
-		      <PercentageShower percentageValue={this.state.percentageValue}/>
-		    </div>
+			<div>
+			{this.state.isShowHeader ? <Header/> : null}
+			<button onClick={this.handleShowOrHide.bind(this)}>
+			    hide or show
+			</button>
+			</div>
 		)
 	}
 }
 
-
-
-ReactDOM.render(<PercentageApp />, document.getElementById('root'));
+ReactDOM.render(<Index />, document.getElementById('root'));
 registerServiceWorker();
