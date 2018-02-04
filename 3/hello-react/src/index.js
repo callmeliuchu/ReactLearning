@@ -398,25 +398,83 @@ import registerServiceWorker from './registerServiceWorker';
 // }
 
 
-class Header extends Component{
+// class Header extends Component{
+// 	constructor(){
+// 		super()
+// 		console.log('constructor')
+// 	}
+
+// 	componentWillMount(){
+// 		console.log('component will mount')
+// 	}
+
+// 	componentDidMount(){
+// 		console.log('component did mount')
+// 	}
+
+// 	componentWillUnmount(){
+// 		console.log('component will unmount')
+// 	}
+// 	render(){
+// 		console.log('render')
+// 		return (
+// 			<div>
+// 			<h1 className='title'>react book</h1>
+// 			</div>
+// 		)
+// 	}
+// }
+
+
+// class Index extends Component{
+// 	constructor(){
+// 		super()
+// 		this.state = {
+// 			isShowHeader:true
+// 		}
+// 	}
+
+// 	handleShowOrHide(){
+// 		this.setState({
+// 			isShowHeader:!this.state.isShowHeader
+// 		})
+// 	}
+
+// 	render(){
+// 		return(
+// 			<div>
+// 			{this.state.isShowHeader ? <Header/> : null}
+// 			<button onClick={this.handleShowOrHide.bind(this)}>
+// 			    hide or show
+// 			</button>
+// 			</div>
+// 		)
+// 	}
+// }
+
+
+class Clock extends Component{
 	constructor(){
 		super()
-		console.log('constructor')
+		this.state = {
+			date: new Date()
+		}
 	}
-
 	componentWillMount(){
-		console.log('component will mount')
+		this.timer = setInterval(()=>{
+			this.setState({date:new Date()})
+		},1000)
 	}
-
-	componentDidMount(){
-		console.log('component did mount')
+	componentWillUnmount(){
+		clearInterval(this.timer)
 	}
-
 	render(){
-		console.log('render')
-		return (
+		return(
 			<div>
-			<h1 className='title'>react book</h1>
+			   <h1>
+			   <p>now time is:</p>
+			   {this.state.date.toLocaleTimeString()}
+			   </h1>
 			</div>
 		)
 	}
@@ -426,28 +484,26 @@ class Header extends Component{
 class Index extends Component{
 	constructor(){
 		super()
-		this.state = {
-			isShowHeader:true
-		}
+		this.state = {isShowClock:true}
 	}
-
 	handleShowOrHide(){
 		this.setState({
-			isShowHeader:!this.state.isShowHeader
+			isShowClock:!this.state.isShowClock
 		})
 	}
-
 	render(){
 		return(
-			<div>
-			{this.state.isShowHeader ? <Header/> : null}
-			<button onClick={this.handleShowOrHide.bind(this)}>
-			    hide or show
-			</button>
-			</div>
+		  <div>
+		     {this.state.isShowClock ? <Clock /> : null}
+		     <button onClick={this.handleShowOrHide.bind(this)}>
+		       hideOrShow
+		     </button>
+		  </div>
 		)
 	}
 }
+
+
 
 ReactDOM.render(<Index />, document.getElementById('root'));
 registerServiceWorker();
